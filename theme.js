@@ -3,7 +3,7 @@ import okaidia from 'react-syntax-highlighter/styles/prism/okaidia';
 
 export default {
   ...baseTheme,
-  colors: {
+  color: {
     ...baseTheme.colors,
     text: '#d6deeb',
     background: '#011627',
