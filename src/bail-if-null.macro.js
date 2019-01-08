@@ -2,8 +2,8 @@ const { createMacro, MacroError } = require('babel-plugin-macros');
 
 module.exports = createMacro(macro);
 
-function macro({ babel: { types: t }, references: { default: paths } }) {
-  paths.forEach(({ parentPath }) => {
+function macro({ babel: { types: t }, references: { default: calls } }) {
+  calls.forEach(({ parentPath }) => {
     if (parentPath.type !== 'CallExpression') {
       const { line } = parentPath.node.loc.start;
       throw new MacroError(`Invalid input given to test.macro at line ${line}`);

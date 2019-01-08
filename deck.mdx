@@ -2,46 +2,164 @@ import { Appear, Notes, Head } from 'mdx-deck';
 import { CodeSurfer } from 'mdx-deck-code-surfer';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import CodeBlock from './code-block';
+import { List } from './list';
 
 <Head>
-  <title>babel-plugin-macros in CRA 2</title>
+  <title>babel-plugin-macros</title>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bodiddlie" />
+  <meta name="twitter:title" content="Babel-Plugin-Macros Talk" />
+  <meta
+    name="twitter:description"
+    content="Slides from my lightning talk on Babel-Plugin-Macros"
+  />
+  <meta
+    name="twitter:image"
+    content="https://babel-macros-talk.netlify.com/card.png"
+  />
 </Head>
 
 export { default as theme } from './theme';
 
-<h2><CodeBlock>babel-plugin-macros</CodeBlock> in CRA 2</h2>
+<h2><CodeBlock>babel-plugin-macros</CodeBlock></h2>
+
+<img src={require('file-loader!./public/lego.png')} />
 
 ---
 
 ## Babel Plugins
 
+<List>
+  <Appear>
+    <li>Enable transformation of code</li>
+    <li>
+      Configure in <CodeBlock>.babelrc</CodeBlock>
+    </li>
+    <li>What about in CRA?</li>
+  </Appear>
+</List>
+
+---
+
+## Babel-Plugin-macros
+
+<List>
+  <Appear>
+    <li>Been around for a while now</li>
+    <li>
+      Can enable other plugins without touching <CodeBlock>.babelrc</CodeBlock>
+    </li>
+    <li>
+      added to <CodeBlock>create-react-app</CodeBlock> in v2.0
+    </li>
+  </Appear>
+</List>
+
 ---
 
 ## Why macros?
 
----
-
-## IDX
+<List>
+  <Appear>
+    <li>Zero Config plugin usage by importing</li>
+    <li>3rd party libs include plugins by just importing</li>
+    <li>
+      No worrying about <CodeBlock>.babelrc</CodeBlock>
+    </li>
+    <li> Wasn't possible before in CRA</li>
+  </Appear>
+</List>
 
 ---
 
 ## Styled Components
 
+<List>
+  <Appear>
+    <li>
+      {' '}
+      Import <CodeBlock>styled-components/macro</CodeBlock> instead
+    </li>
+    <li> Get all the functionality of the babel-plugin</li>
+    <li> Better debugging</li>
+    <li> Better performance</li>
+    <li> SSR</li>
+  </Appear>
+</List>
+
+---
+
+## IDX
+
+```js
+let thing = null;
+if (
+  props.first !== null &&
+  props.first.second !== null &&
+  props.first.second.third !== null
+) {
+  thing = props.first.second.third.fourth;
+}
+```
+
+```js
+import idx from 'idx.macro';
+const thing = idx(props, _ => _.first.second.third.fourth);
+```
+
 ---
 
 ## Write your own
+
+<List>
+  <Appear>
+    <li>
+      {' '}
+      Just need a <CodeBlock>*.macro.js</CodeBlock> file
+    </li>
+    <li>
+      {' '}
+      Import <CodeBlock>createMacro</CodeBlock>
+    </li>
+    <li> Work with AST just like a babel plugin</li>
+  </Appear>
+</List>
 
 ---
 
 ## AST Explorer
 
----
-
-## Example of code to change
+- [ASTExplorer.net](https://astexplorer.net)
 
 ---
 
-## Walkthrough code for macro
+<CodeSurfer
+  title="Use our own macro"
+  code={require('!raw-loader!./src/app.js')}
+  steps={[
+    { range: [17, 19], notes: 'What we are replacing' },
+    { lines: [2], notes: 'Import the macro' },
+    { lines: [9, 10], notes: "One component gets a prop, the other doesn't" },
+    { lines: [21], notes: "Use the macro -- super-contrived, don't do this" },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Implementation of bailIfNull macro"
+  code={require('!raw-loader!./src/bail-if-null.macro.js')}
+  steps={[
+    { lines: [1], notes: 'Import createMacro and optionally MacroError' },
+    { lines: [3], notes: 'Export the created macro' },
+    { lines: [5], notes: 'Destructure to get babel types and list of calls' },
+    { lines: [6], notes: 'Loop over each call' },
+    { range: [7, 10], notes: 'Error if not used as function call' },
+    { lines: [12], notes: 'Get the prop we are null-checking' },
+    { range: [13, 16], notes: 'Build if-statement tree' },
+    { lines: [17], notes: 'Replace macro call with if statement' },
+  ]}
+/>
 
 ---
 
@@ -50,3 +168,10 @@ export { default as theme } from './theme';
 ---
 
 ## Wrap up
+
+- [Babel-Plugin-Macros](https://github.com/kentcdodds/babel-plugin-macros)
+- Slides available at [https://babel-macros-talk.netlify.com](https://babel-macros-talk.netlify.com)
+- Demo code and slide markup available at [https://github.com/bodiddlie/babel-macros](https://github.com/bodiddlie/babel-macros)
+- [@bodiddlie](https://twitter.com/bodiddlie) on twitter
+
+### Thank you! 🤗

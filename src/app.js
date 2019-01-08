@@ -14,6 +14,10 @@ class Macro extends React.Component {
 }
 
 function Other(props) {
+  //if (!props.something) {
+  //  return null;
+  //}
+
   bailIfNull(props.something);
 
   return <div>Wasn't Null - {props.something}</div>;
