@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Other(props) {
   if (!props.something) {
     return null;
