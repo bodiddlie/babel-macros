@@ -144,13 +144,12 @@ const thing = idx(props, _ => _.first.second.third.fourth);
 ---
 
 <CodeSurfer
-  title="Use our own macro"
+  title="What does using it look like"
   code={require('!raw-loader!./src/app.js')}
   steps={[
-    { range: [17, 19], notes: 'What we are replacing' },
     { lines: [2], notes: 'Import the macro' },
     { lines: [9, 10], notes: "One component gets a prop, the other doesn't" },
-    { lines: [21], notes: "Use the macro -- super-contrived, don't do this" },
+    { lines: [19], notes: "Use the macro -- super-contrived, don't do this" },
   ]}
 />
 
